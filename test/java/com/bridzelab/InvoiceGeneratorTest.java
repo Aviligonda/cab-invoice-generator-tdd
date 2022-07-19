@@ -38,4 +38,21 @@ public class InvoiceGeneratorTest {
         InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(2, 120);
         Assert.assertEquals(expectedInvoiceSummary, invoiceSummary);
     }
+
+    // Same time and distance but total fare is different Because first one is normal ride second one is premium ride
+    @Test
+    public void givenTwoDifferentRidesPremiumAndNormalRide_FindTotalFareSummary() {
+        double distance = 10;
+        int time = 15;
+        Assert.assertEquals(115, generator.calculateFare(distance, time), 0.0);
+        Assert.assertEquals(230, generator.calculatePremiumFare(distance, time), 0.0);
+    }
+
+    // Total fare value of premium ride is less than 20 should return 20;
+    @Test
+    public void premiumMinimumFare() {
+        double distance = 0.1;
+        int time = 1;
+        Assert.assertEquals(20, generator.calculatePremiumFare(distance, time), 0.0);
+    }
 }
